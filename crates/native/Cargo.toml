@@ -13,3 +13,4 @@ crate-type = ["dylib"]
 [dependencies]
 rustler = { git = "https://github.com/rusterlium/rustler.git", branch = "master" }
 bulletproofs = { git = "https://github.com/vihu/bulletproofs.git", branch = "rg/remove-toolchain" }
+hex = "0.3"

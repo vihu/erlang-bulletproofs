@@ -13,4 +13,10 @@ crate-type = ["dylib"]
 [dependencies]
 rustler = { git = "https://github.com/rusterlium/rustler.git", branch = "master" }
 bulletproofs = { git = "https://github.com/vihu/bulletproofs.git", branch = "rg/remove-toolchain" }
+curve25519-dalek = { version = "2", default-features = false, features = ["u64_backend", "nightly", "serde", "alloc"] }
 hex = "0.3"
+rand = { version = "0.7", default-features = false}
+merlin = { version = "2", default-features = false }
+
+[patch.crates-io]
+merlin = { git = "https://github.com/vihu/merlin.git", branch = "rg/remove-static" }

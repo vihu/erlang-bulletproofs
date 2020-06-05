@@ -3,8 +3,8 @@ use rustler::{Atom, Env, ResourceArc};
 use bulletproofs::BulletproofGens;
 
 /// Struct to hold BulletproofGens
-struct BulletproofGensResource {
-    bp_gens: BulletproofGens
+pub struct BulletproofGensResource {
+    pub bp_gens: BulletproofGens
 }
 
 pub fn load(env: Env) -> bool {

@@ -1,6 +1,9 @@
 extern crate bulletproofs;
 extern crate rustler;
 extern crate hex;
+extern crate curve25519_dalek;
+extern crate rand;
+extern crate merlin;
 
 use rustler::{Env, Term};
 
@@ -8,11 +11,15 @@ mod atoms;
 mod pedersen_gens;
 mod bulletproof_gens;
 mod range_proof;
+mod transcript;
+mod scalar;
 
 fn load(env: Env, _: Term) -> bool {
     pedersen_gens::load(env);
     bulletproof_gens::load(env);
     range_proof::load(env);
+    transcript::load(env);
+    scalar::load(env);
 
     true
 }
@@ -26,6 +33,12 @@ rustler::init!(
         bulletproof_gens::new,
         // RangeProof API
         range_proof::from_bytes,
+        range_proof::prove_single,
+        range_proof::verify_single,
+        // Transcript API
+        transcript::new,
+        // Scalar API
+        scalar::random,
     ],
     load = load
 );

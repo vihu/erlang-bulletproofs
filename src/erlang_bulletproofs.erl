@@ -5,7 +5,11 @@
 
 -export([pedersen_gens_default/0,
          bulletproof_gens_new/2,
-         range_proof_from_bytes/1
+         range_proof_from_bytes/1,
+         transcript_new/1,
+         scalar_random/0,
+         range_proof_prove_single/6,
+         range_proof_verify_single/5
         ]).
 
 load() ->
@@ -22,6 +26,35 @@ bulletproof_gens_new(_, _) ->
 
 -spec range_proof_from_bytes(Bytes :: binary())-> {ok, reference()} | {error, any()}.
 range_proof_from_bytes(_) ->
+    not_loaded(?LINE).
+
+-spec transcript_new(Bytes :: binary())-> {ok, reference()} | {error, any()}.
+transcript_new(_) ->
+    not_loaded(?LINE).
+
+-spec scalar_random()-> {ok, reference()} | {error, any()}.
+scalar_random() ->
+    not_loaded(?LINE).
+
+-spec range_proof_prove_single(
+        reference(),
+        reference(),
+        reference(),
+        pos_integer(),
+        reference(),
+        pos_integer()
+       )-> {ok, reference()} | {error, any()}.
+range_proof_prove_single(_, _, _, _, _, _) ->
+    not_loaded(?LINE).
+
+-spec range_proof_verify_single(
+        reference(),
+        reference(),
+        reference(),
+        reference(),
+        pos_integer()
+       )-> {ok, reference()} | {error, any()}.
+range_proof_verify_single(_, _, _, _, _) ->
     not_loaded(?LINE).
 
 not_loaded(Line) ->

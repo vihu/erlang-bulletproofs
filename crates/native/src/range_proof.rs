@@ -1,8 +1,9 @@
-use crate::atoms::ok;
+use crate::atoms::{ok, error};
 use crate::bulletproof_gens::BulletproofGensResource;
 use crate::pedersen_gens::PedersenGensResource;
 use crate::transcript::TranscriptResource;
 use crate::scalar::ScalarResource;
+use crate::compressed_ristretto::CompressedRistrettoResource;
 use rustler::{Atom, Env, ResourceArc, Binary};
 use bulletproofs::RangeProof;
 use curve25519_dalek::ristretto::CompressedRistretto;
@@ -74,4 +75,36 @@ fn verify_single(
         .verify_single(&bp_gens, &pc_gens, &mut verifier_transcript, &committed_value, n)
         .is_ok()
 
+}
+
+#[rustler::nif(name = "range_proof_verify_multiple")]
+fn verify_multiple(
+    proof_res: ResourceArc<RangeProofResource>,
+    bp_gens_res: ResourceArc<BulletproofGensResource>,
+    pc_gens_res: ResourceArc<PedersenGensResource>,
+    transcript_res: ResourceArc<TranscriptResource>,
+    vec_value_commitments_res: Vec<ResourceArc<CompressedRistrettoResource>>,
+    n: usize) -> Atom {
+
+    let bp_gens = bp_gens_res.bp_gens.clone();
+    let pc_gens = pc_gens_res.pc_gens;
+    let mut verifier_transcript = transcript_res.transcript.clone();
+
+    let proof = proof_res.rp.clone();
+
+    let mut value_commitments: Vec<CompressedRistretto> = vec![];
+    for res in vec_value_commitments_res {
+        value_commitments.push(res.compressed_ristretto)
+    };
+
+    match proof
+        .verify_multiple(
+            &bp_gens,
+            &pc_gens,
+            &mut verifier_transcript,
+            &value_commitments,
+            n) {
+            Ok(()) => ok(),
+            _ => error()
+        }
 }

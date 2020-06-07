@@ -9,7 +9,9 @@
          transcript_new/1,
          scalar_random/0,
          range_proof_prove_single/6,
-         range_proof_verify_single/5
+         range_proof_verify_single/5,
+         range_proof_verify_multiple/6,
+         compressed_ristretto_from_slice/1
         ]).
 
 load() ->
@@ -55,6 +57,21 @@ range_proof_prove_single(_, _, _, _, _, _) ->
         pos_integer()
        )-> {ok, reference()} | {error, any()}.
 range_proof_verify_single(_, _, _, _, _) ->
+    not_loaded(?LINE).
+
+-spec range_proof_verify_multiple(
+        reference(),
+        reference(),
+        reference(),
+        reference(),
+        [reference()],
+        pos_integer()
+       )-> {ok, reference()} | {error, any()}.
+range_proof_verify_multiple(_, _, _, _, _, _) ->
+    not_loaded(?LINE).
+
+-spec compressed_ristretto_from_slice(Bytes :: binary())-> {ok, reference()} | {error, any()}.
+compressed_ristretto_from_slice(_) ->
     not_loaded(?LINE).
 
 not_loaded(Line) ->
